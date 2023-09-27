@@ -6,3 +6,6 @@ from django.shortcuts import render
    
 def index(request):
     return render(request, 'home/index.html')
+def appointment(request):
+
+    return render(request, 'appointment/appointment.html')

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+<body id="top">
+
+
+	
+
+
+
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  <div class="block text-center">
+			
+			<h1 class="text-capitalize mb-5 text-lg">Register</h1>
+  
+			<span class="text-white">Open An Account With Us</span>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+  
+  <section class="appoinment section">
+	<div class="container">
+	  <div class="row">
+	
+  
+		<div class="col-lg-8">
+			<div class="appointment-wrap mt-5 mt-lg-0 pl-lg-5">
+				<h2 class="mb-2 title-color">Benefits</h2>
+				<ul>
+					<li class="mb-1">You can quickly book a spot in the queue.</li>
+					<li class="mb-1">You can schedule appointments with our doctors.</li>
+					<li class="mb-1">You can access your medical history.</li>
+					<li class="mb-1">Access our hospital services online.</li>
+				</ul>
+			</div>
+		</div>
+		
+			
+		<form method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Register</button>
+		  </form>
+		
+			  </div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+  
+<!-- footer Start -->
+
+
+   
+
+
+{% endblock content %}
+
+
+   
