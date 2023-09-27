@@ -1,6 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
+
+from django.contrib import messages
+
+from django.contrib.auth import login as auth_login, logout
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login
+
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -8,15 +15,13 @@ def register(request):
         if form.is_valid():
             user = form.save()
            
-            return redirect('index.html')  # Create a profile view to handle user profiles
+            return redirect('index')  # Create a profile view to handle user profiles
     else:
         form = UserCreationForm()
     return render(request, 'Auth/register.html', {'form': form})
 
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login as auth_login, logout
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
+
+
 
 # ... other views ...
 
