@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import AppointmentForm, confirmForm
 # Create your views here.
 def appointment(request):
@@ -9,7 +9,7 @@ def appointment(request):
             form.save()
             print(form.errors)
             print('Error')
-            return redirect('register') 
+            return redirect('index') 
     else:
         form = AppointmentForm()
         
