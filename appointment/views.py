@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import AppointmentForm, confirmForm
+from .models import Appointment
+
+from django.shortcuts import get_object_or_404
 # Create your views here.
 def appointment(request):
     if request.method == 'POST':
@@ -49,6 +52,7 @@ def appointment_details(request, request_number):
         form = confirmForm()
         print('Appointments not saved')
     context = {
+        'form': form,
         'appointments': appointments
         }
     

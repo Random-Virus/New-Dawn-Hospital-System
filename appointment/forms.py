@@ -46,11 +46,19 @@ class confirmForm(forms.ModelForm):
         model = Appointment
         fields = ['doctor', 'date', 'time']
 
+    doctor = forms.ModelChoiceField(
+        queryset=Doctor.objects.all(),
+        empty_label="Select a doctor",
+        widget=forms.Select(attrs={'class': 'form-control'}), 
+        required=True
+    )
     date = forms.DateField(
         label='Date',
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        required=True
     )
     time = forms.TimeField(
         label='Time',
         widget=forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+        required=True
     )
