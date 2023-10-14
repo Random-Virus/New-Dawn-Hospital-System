@@ -16,8 +16,9 @@
 	  <div class="row">
 		<div class="col-md-12">
 		  <div class="block text-center">
-			<span class="text-white">Book your Spot</span>
 			<h1 class="text-capitalize mb-5 text-lg">Self-Service Kiosk</h1>
+			<span class="text-white">Book your Spot</span>
+			
   
 		
 		  </div>
@@ -43,28 +44,90 @@
 			 <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
 			  <h2 class="mb-2 title-color">Self-Service Kiosk</h2>
 			  <p class="mb-4"> Our Hospital Self-Service Kiosks are designed to make your visit as convenient and efficient as possible. These interactive kiosks empower you to take control of your healthcare journey with easy-to-use features.</p>
-			  <form id="appointment-form" class="appoinment-form" method="post" action="{% url 'book_spot' %}">
+			  <form id="appointment-form" class="appointment-form" method="post" action="{% url 'book_spot' %}">
 				{% csrf_token %}
+				
 				{{ form.non_field_errors }}
+				
 				<div class="row">
 					<div class="col-lg-6">
-						{{ form.first_name }}
+						<div class="form-group">
+							<label for="{{ form.first_name.id_for_label }}">First Name:</label>
+							{{ form.first_name }}
+							{% if form.first_name.errors %}
+								<span class="text-danger">
+									{% for error in form.first_name.errors %}
+										{{ error }}
+									{% endfor %}
+								</span>
+							{% endif %}
+						</div>
 					</div>
+					
 					<div class="col-lg-6">
-						{{ form.last_name }}
+						<div class="form-group">
+							<label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+							{{ form.last_name }}
+							{% if form.last_name.errors %}
+								<span class="text-danger">
+									{% for error in form.last_name.errors %}
+										{{ error }}
+									{% endfor %}
+								</span>
+							{% endif %}
+						</div>
 					</div>
+					
 					<div class="col-lg-6">
-						{{ form.id_number }}
+						<div class="form-group">
+							<label for="{{ form.id_number.id_for_label }}">ID Number:</label>
+							{{ form.id_number }}
+							{% if form.id_number.errors %}
+								<span class="text-danger">
+									{% for error in form.id_number.errors %}
+										{{ error }}
+									{% endfor %}
+								</span>
+							{% endif %}
+						</div>
 					</div>
+					
 					<div class="col-lg-6">
-						{{ form.phone }}
+						<div class="form-group">
+							<label for="{{ form.phone.id_for_label }}">Phone:</label>
+							{{ form.phone }}
+							{% if form.phone.errors %}
+								<span class="text-danger">
+									{% for error in form.phone.errors %}
+										{{ error }}
+									{% endfor %}
+								</span>
+							{% endif %}
+						</div>
 					</div>
 				</div>
-				<div class="form-group-2 mb-4">
-					{{ form.symptoms }}
-				</div>
+				
+				<div class="form-group">
+					<label for="{{ form.symptoms.id_for_label }}">Symptoms:</label>
+					<ul>
+					  {% for symptom in form.symptoms %}
+						<li>
+						  <label>
+							{{ symptom.tag }} {{ symptom.choice_label }}
+						  </label>
+						</li>
+					  {% endfor %}
+					</ul>
+				  </div>
+				
+				
+				
+				
+				
 				<button type="submit" class="btn btn-main btn-round-full">Book A Spot<i class="icofont-simple-right ml-2"></i></button>
 			</form>
+			
+			
 			
 				  <p>Caution: If you are unable to do the process , visit the hospital </p>
 			  </div>

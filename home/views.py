@@ -63,3 +63,8 @@ def set_language(request):
             language = form.cleaned_data['language']
             request.session[translation.LANGUAGE_SESSION_KEY] = language
     return redirect(request.META.get('HTTP_REFERER'))
+    return render(request, 'appointment/appointment.html')
+    
+def blog(request):
+
+    return render(request, 'blog/index.html')
