@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Nearest Hospital</h1>
+{% if hospital %}
+    <h2>Name: {{ hospital.name }}</h2>
+    <p>Address: {{ hospital.address }}</p>
+    <p>Phone: {{ hospital.phone }}</p>
+    <p>Distance: {{ distance }} miles</p>
+{% else %}
+    <p>No hospitals found.</p>
+{% endif %}
+
+<a href="{% url 'ambulanceRequest' %}">Back to Ambulance Request</a>
+
+
+{% endblock %}

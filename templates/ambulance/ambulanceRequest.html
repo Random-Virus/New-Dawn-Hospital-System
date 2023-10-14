@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <form method="post" action="{% url 'ambulanceRequest' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit Location">
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector('form');
+        
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude.toFixed(15);
+                const longitude = position.coords.longitude.toFixed(15);
+                
+                // Populate the latitude and longitude fields in the form
+                form.elements.latitude.value = latitude;
+                form.elements.longitude.value = longitude;
+            });
+        }
+    });
+
+
+</script>
+{% endblock %}

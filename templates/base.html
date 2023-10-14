@@ -54,6 +54,10 @@
                                 <span class="h4">+27 63 433 4565</span>
                                 <span>{{ request.user}}</span>
                             </a>
+                            <form method="post" action="{% url 'set_language' %}">
+                                {% csrf_token %}
+                                {{ LanguageSelectorForm.as_p }}
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -113,7 +117,7 @@
                         </li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item"> <a href="" class="btn btn-main btn-round-full">Profile</a></li>
+                        <li class="nav-item"> <a href="{% url 'profile_view' %}" class="btn btn-main btn-round-full">Profile</a></li>
                     {% else %}
                         <li class="nav-item"> <a href="{% url 'login' %}" class="btn btn-main btn-round-full">Login</a></li>
                         <li class="nav-item"> <a href="{% url 'register' %}" class="btn btn-main btn-round-full">Register</a></li>

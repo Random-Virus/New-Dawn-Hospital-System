@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('appointment/', include('appointment.urls')),
     path('auth', include('authitacation.urls')),
+    path('ambulance/', include('ambulance.urls')),
 
 
     ##################################
