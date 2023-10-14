@@ -9,3 +9,6 @@ def index(request):
 def appointment(request):
 
     return render(request, 'appointment/appointment.html')
+def blog(request):
+
+    return render(request, 'blog/index.html')

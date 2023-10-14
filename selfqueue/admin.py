@@ -1,10 +1,16 @@
 from django.contrib import admin
-from .models import Booking  # Import your Booking model
+from .models import PatientQueue
+from django.contrib import admin
+from .models import Symptom # Import your models
 
-class BookingAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'id_number', 'phone', 'spot_number', 'estimated_time', 'status')
+# Register the Symptom model
+class SymptomAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ['name']
+class PatientQueueAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'id_number', 'phone', 'spot_number','estimated_time','closing_time','status')
     list_filter = ('status',)
-    search_fields = ('first_name', 'last_name', 'id_number', 'phone', 'status')
+    search_fields = ('first_name', 'last_name', 'id_number', 'phone')
 
-# Register your model with the custom admin class
-admin.site.register(Booking, BookingAdmin)
+admin.site.register(PatientQueue, PatientQueueAdmin)
+admin.site.register(Symptom, SymptomAdmin)
