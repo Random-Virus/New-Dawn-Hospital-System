@@ -20,32 +20,135 @@
 						<p>Category</p>
 						<table class="table">
 							<thead>
-							  <tr>
-								
-								<th scope="col">Name</th>
-								
-							  </tr>
+								<tr>
+									<th scope="col">Name</th>
+								</tr>
 							</thead>
 							<tbody>
-							  
-							  
-							  <tr>
 								{% for category in categories %}
-								
-								<td colspan="2">{{ category.name }}</td>
-								
+									<tr>
+										<td>{{ category.name }}</td>
+									</tr>
 								{% endfor %}
-							  </tr>
 							</tbody>
+						</table>
+						
 
+							<form id="appointment-form" class="appointment-form" method="post" action="{% url 'editor' %}">
+								{% csrf_token %}
+								
+								{{ category_form.non_field_errors }}
+								
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="{{  category_form.name.id_for_label }}">Name</label>
+											{{  category_form.name }}
+											{% if  category_form.name.errors %}
+												<span class="text-danger">
+													{% for error in  category_form.name.errors %}
+														{{ error }}
+													{% endfor %}
+												</span>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+										
+								<button type="submit" class="btn btn-main btn-round-full">Add<i class="icofont-simple-right ml-2"></i></button>
+							</form>
 							
+
+
+
+
+
+
 						</table>
 
 
 					</div>
 					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 						
-						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+						<form id="article-form" class="appointment-form" method="post" action="{% url 'editor' %}" enctype="multipart/form-data">
+							{% csrf_token %}
+							
+							{{ form.non_field_errors }}
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="{{ article_form.title.id_for_label }}">Title</label>
+										{{article_form.title }}
+										{% if article_form.title.errors %}
+											<span class="text-danger">
+												{% for error in article_form.title.errors %}
+													{{ error }}
+												{% endfor %}
+											</span>
+										{% endif %}
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="{{ article_form.category.id_for_label }}">Category</label>
+										<select name="{{ article_form.category.name }}" class="form-control" id="{{ article_form.category.id_for_label }}">
+											<option value="" disabled selected>Select a Category</option>
+											{% for category in categories %}
+												<option value="{{ category.id }}">{{ category.name }}</option>
+											{% endfor %}
+										</select>
+										{% if article_form.category.errors %}
+											<span class="text-danger">
+												{% for error in article_form.category.errors %}
+													{{ error }}
+												{% endfor %}
+											</span>
+										{% endif %}
+									</div>
+								</div>
+								
+							</div>
+							
+							<div class="form-group">
+								<label for="{{ article_form.content.id_for_label }}">Content</label>
+								{{ article_form.content }}
+								{% if article_form.content.errors %}
+									<span class="text-danger">
+										{% for error in article_form.content.errors %}
+											{{ error }}
+										{% endfor %}
+									</span>
+								{% endif %}
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="{{ article_form.title.id_for_label }}">Title</label>
+									{{article_form.author }}
+									{% if article_form.title.errors %}
+										<span class="text-danger">
+											{% for error in article_form.title.errors %}
+												{{ error }}
+											{% endfor %}
+										</span>
+									{% endif %}
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="{{ article_form.picture.id_for_label }}">Picture</label>
+								{{ article_form.picture }}
+								{% if article_form.picture.errors %}
+									<span class="text-danger">
+										{% for error in article_form.picture.errors %}
+											{{ error }}
+										{% endfor %}
+									</span>
+								{% endif %}
+							</div>
+							
+							<button type="submit" name="article_form" class="btn btn-main btn-round-full">Add <i class="icofont-simple-right ml-2"></i></button>
+						</form>
+						
 					</div>
 					
 				</div>

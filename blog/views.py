@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 # Create your views here.
+from .forms import CategoryForm , ArticleForm
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Article,Category  # Import your Article model
@@ -69,7 +70,26 @@ def category_articles(request, category_id):
     return render(request, 'blog/index.html', {'category': category, 'categories':categories, 'articles': articles})
 
 
+
 def editor(request):
-    categories =Category .objects.all()
-    context = {'categories': categories}
+    if request.method == 'POST':
+        if 'category_form' in request.POST:
+            # Process the category form
+            category_form = CategoryForm(request.POST)
+            if category_form.is_valid():
+                category_form.save()
+        elif 'article_form' in request.POST:
+            # Process the article form
+            article_form = ArticleForm(request.POST, request.FILES)
+            if article_form.is_valid():
+                article_form.save()
+        # Redirect to the editor page after submitting the form
+        return redirect('editor')
+    else:
+        category_form = CategoryForm()
+        article_form = ArticleForm()
+    
+    categories = Category.objects.all()
+    context = {'categories': categories, 'category_form': category_form, 'article_form': article_form}
+    
     return render(request, 'blog/editor.html', context)
