@@ -35,5 +35,18 @@ class Appointment(models.Model):
     date = models.DateField(blank=True, null=True)
     time = models.TimeField(blank=True, null=True)
     note = models.TextField(blank=True)
-    request_number = models.CharField(max_length=10, default=get_random_string(length=10), unique=True)
+    request_number = models.CharField(max_length=10, unique=True)
     request_date = models.DateTimeField(default=timezone.now)
+
+
+    def clean(self):
+        if not self.request_number:
+            generated_request_number = get_random_string(length=8, allowed_chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+            self.request_number = generated_request_number
+
+    def save(self, *args, **kwargs):
+        if not self.request_number:
+            generated_request_number = get_random_string(length=8, allowed_chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+            self.request_number = generated_request_number
+    
+        super().save(*args, **kwargs)

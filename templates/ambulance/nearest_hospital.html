@@ -5,14 +5,24 @@
 <h1>Nearest Hospital</h1>
 {% if hospital %}
     <h2>Name: {{ hospital.name }}</h2>
-    <p>Address: {{ hospital.address }}</p>
-    <p>Phone: {{ hospital.phone }}</p>
-    <p>Distance: {{ distance }} miles</p>
+    <!-- <p>Address: {{ hospital.address }}</p>
+    <p>Phone: {{ hospital.phone }}</p> -->
+    <p>Distance: {{ distance }} KM</p>
 {% else %}
     <p>No hospitals found.</p>
 {% endif %}
 
 <a href="{% url 'ambulanceRequest' %}">Back to Ambulance Request</a>
+
+<iframe
+  width="600"
+  height="450"
+  style="border:0"
+  loading="lazy"
+  allowfullscreen
+  referrerpolicy="no-referrer-when-downgrade"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAL-hrFKfJN7iFXNhahl7fQD0n0s4d2ihg&q=Space+Needle,Seattle+WA">
+</iframe>
 
 
 {% endblock %}

@@ -10,6 +10,7 @@ from django.contrib.auth import update_session_auth_hash
 
 def index(request):
     return render(request, 'home/index.html')
+    
 @login_required
 def profile_view(request):
     user = request.user
@@ -64,7 +65,7 @@ def set_language(request):
             request.session[translation.LANGUAGE_SESSION_KEY] = language
     return redirect(request.META.get('HTTP_REFERER'))
     return render(request, 'appointment/appointment.html')
-    
+
 def blog(request):
 
     return render(request, 'blog/index.html')

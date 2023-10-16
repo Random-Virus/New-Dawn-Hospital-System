@@ -12,12 +12,14 @@ def ambulanceRequestView(request):
         form = ambulanceRequestForm(request.POST)
         if form.is_valid():
             ambulance_request = form.save(commit=False)
-
+           
             ambulance_request.user = request.user
             ambulance_request.save()
-            #You can add code here to notify the emergency response team
+            
+
             return redirect('hospital_nearest')
     else:
+        print('Please enter the details')
         form = ambulanceRequestForm()
 
     return render(request, 'ambulance/ambulanceRequest.html', {'form': form})

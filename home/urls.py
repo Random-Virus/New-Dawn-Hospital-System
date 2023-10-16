@@ -8,7 +8,7 @@ urlpatterns = [
     path('profile_view/', views.profile_view, name='profile_view'),
     path('profile_edit/', views.profile_edit, name='profile_edit'),
     path('i18n/', set_language, name='set_language'),
-    path('appointment/', views.appointment, name='appointment'),
+
     path('selfqueue/', include('selfqueue.urls')),
     path('blog/', views.blog, name='blog'),
 ]
