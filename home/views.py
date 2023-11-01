@@ -32,7 +32,7 @@ def profile_edit(request):
     except profile.DoesNotExist:
         user_profile = None
     if request.method =='POST':
-        profile_form = ProfileForm(request.POST, instance=user_profile)
+        form = ProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
             user_profile = form.save(commit=False)
             user_profile.user = request.user
@@ -40,12 +40,12 @@ def profile_edit(request):
             
             return redirect('profile')
     else:
-        profile_form = ProfileForm(instance=user_profile)
+        form = ProfileForm(instance=user_profile)
 
     context = {
-        'profile_form': profile_form,
+        'form': form,
         'user_profile': user_profile,
-        'LanguageSelectorForm': LanguageSelectorForm,
+        
     }
     return render(request, 'home/profile_edit.html', context)
 

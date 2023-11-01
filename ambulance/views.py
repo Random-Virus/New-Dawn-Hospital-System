@@ -13,7 +13,7 @@ def ambulanceRequestView(request):
         if form.is_valid():
             ambulance_request = form.save(commit=False)
            
-            ambulance_request.user = request.user
+            ambulance_request.user = request.user.get_full_name()
             ambulance_request.save()
             
 
@@ -47,3 +47,21 @@ def find_nearest_hospital(request):
         'distance': min_distance
     }
     return render(request, 'ambulance/nearest_hospital.html', context)
+
+
+def viewRequests(request):
+    
+    requests = ambulanceRequest.objects.all()
+    context = {
+        'requests': requests
+    }
+
+    print(ambulanceRequest.objects.get(pk=1).user)
+    return render(request, 'ambulance/viewRequests.html', context)
+
+def request_detail(request, request_id):
+    ambulance_request = ambulanceRequest.objects.get(id=request_id)
+    context = {
+        'ambulance_request': ambulance_request
+    }
+    return render(request, 'ambulance/request_detail.html', context)

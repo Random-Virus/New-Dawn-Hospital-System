@@ -166,3 +166,9 @@ LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 
+EMAIL_HOST_USER = 'newdawn.medic@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'jrgrnzjmpxjmtsyw'
+DEFAULT_FROM_EMAIL = 'newdawn.medic@gmail.com'

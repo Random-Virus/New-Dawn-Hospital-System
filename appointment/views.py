@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import AppointmentForm, confirmForm
 from .models import Appointment
-
+#import settings
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 # Create your views here.
 def appointment(request):
@@ -68,6 +69,20 @@ def confirm_appointment(request, request_number):
         appointments.doctor = doctor
         appointments.save()
         print('Appointments saved')
+        #send an email to the user to confirm the appointment
+        subject = 'Appointments confirmed'
+        message = f'Your appointment has been confirmed'
+        from_email = settings.EMAIL_HOST_USER
+        to_email = appointments.email
+
+        try:
+            send_mail(subject, message, from_email, [to_email])
+            print("Email sent")
+        except Exception as e:
+            print(e)
+            print(f"Failed to send email to {to_email}: {e}")
+        #send_mail(subject, message, from_email, to_list, fail_silently=True)
+
     else:
         print("Two")
     messages.success(request, 'Appointment confirmed successfully!')
