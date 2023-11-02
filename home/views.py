@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from .forms import ProfileForm, LanguageSelectorForm
+from .forms import ProfileForm, LanguageSelectorForm, SignUpForm
 from .models import profile
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserChangeForm 
 from django.contrib.auth import update_session_auth_hash
 # Create your views here.
@@ -28,7 +29,7 @@ def profile_view(request):
 def profile_edit(request):
     user = request.user
     try:
-        user_profile = profile.objects.get(user=user)
+        user_profile = profile.objects.get(user=request.user)
     except profile.DoesNotExist:
         user_profile = None
     if request.method =='POST':
@@ -49,7 +50,30 @@ def profile_edit(request):
     }
     return render(request, 'home/profile_edit.html', context)
 
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Create a new user
+            login(request, user)  # Log in the user
+            return redirect('profile_view')  # Replace 'profile' with your desired URL name
+    else:
+        form = SignUpForm()
+    return render(request, 'home/signup.html', {'form': form})
+    
 def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            # Authenticate the user
+            user = form.get_user()
+            auth_login(request, user)  # Log in the user
+            print('if')
+            # Redirect to a success page
+            return redirect('index')  # Replace 'profile' with your desired URL name
+    else:
+        print('else')
+        form = AuthenticationForm()
     return render(request, 'home/signin.html')
 
 def logout(request):

@@ -43,9 +43,13 @@ def find_nearest_hospital(request):
     print(distance)
 
     context = {
+        'hospital_latitude': nearest_hospital.latitude,
+        'hospital_longitude': nearest_hospital.longitude,
         'hospital': nearest_hospital,
         'distance': min_distance
     }
+    print(nearest_hospital.latitude)
+    print(nearest_hospital.longitude)
     return render(request, 'ambulance/nearest_hospital.html', context)
 
 

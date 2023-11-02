@@ -2,18 +2,42 @@
 {% load static %}
 {% block content %}
 
+<style>
+  a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
+}
+  a.ghost {
+	border-radius: 20px;
+	border: 1px solid #000000;
+	background-color: #2bdfff;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+
+	border-color: #FFFFFF;
+}
+</style>
 <h1>Nearest Hospital</h1>
 {% if hospital %}
-    <h2>Name: {{ hospital.name }}</h2>
+    <h3>Name: {{ hospital.name }}</h3>
     <!-- <p>Address: {{ hospital.address }}</p>
     <p>Phone: {{ hospital.phone }}</p> -->
     <p>Distance: {{ distance }} KM</p>
 {% else %}
     <p>No hospitals found.</p>
 {% endif %}
-
-<a href="{% url 'ambulanceRequest' %}">Back to Ambulance Request</a>
-
+<section>
+<a class="ghost" href="{% url 'ambulanceRequest' %}">Back to Ambulance Request</a>
+</section>
+<br>
+<section class="col-md-6">
 <iframe
   width="600"
   height="450"
@@ -21,8 +45,8 @@
   loading="lazy"
   allowfullscreen
   referrerpolicy="no-referrer-when-downgrade"
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAL-hrFKfJN7iFXNhahl7fQD0n0s4d2ihg&q=Space+Needle,Seattle+WA">
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAL-hrFKfJN7iFXNhahl7fQD0n0s4d2ihg&q={{hospital_latitude}},{{hospital_longitude}}">
 </iframe>
-
+</section>
 
 {% endblock %}
