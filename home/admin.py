@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import profile
+from .models import Profile
 # Register your models here.
 
 
@@ -9,4 +9,4 @@ class profileAdmin(admin.ModelAdmin):
     search_fields = ('name', 'surname', 'email', 'phone', 'id_number', 'date_of_birth', 'address', 'city', 'state', 'zip', 'country')
     ordering = ['name']
 
-admin.site.register(profile, profileAdmin)
+admin.site.register(Profile, profileAdmin)

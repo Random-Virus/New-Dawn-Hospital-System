@@ -16,7 +16,8 @@ SECRET_KEY = 'django-insecure-rxi(c2w(%wbvd+&=+&vpet)%o)+x!d8q6ei+p+&3p45p0*6nrd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chamois-famous-jolly.ngrok-free.app', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://chamois-famous-jolly.ngrok-free.app']
 
 
 # Application definition
@@ -123,7 +124,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Johannesburg'
+
 
 USE_I18N = True
 

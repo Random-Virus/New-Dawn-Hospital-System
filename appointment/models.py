@@ -35,6 +35,7 @@ class Appointment(models.Model):
     date = models.DateField(blank=True, null=True)
     time = models.TimeField(blank=True, null=True)
     note = models.TextField(blank=True)
+    is_confirmed = models.BooleanField(default=False)
     request_number = models.CharField(max_length=10, unique=True)
     request_date = models.DateTimeField(default=timezone.now)
 

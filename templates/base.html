@@ -94,11 +94,11 @@
                     </li> -->
     
                       <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Doctors <i class="icofont-thin-down"></i></a>
+                        <a class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Self help <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                            <li><a class="dropdown-item" href="doctor.html">Doctors</a></li>
-                            <li><a class="dropdown-item" href="doctor-single.html">Doctor Single</a></li>
-                            <li><a class="dropdown-item" href="appoinment.html">Appoinment</a></li>
+                            <li><a class="dropdown-item" href="{% url 'appointment' %}">Make appointment</a></li>
+                            <li><a class="dropdown-item" href="{% url 'book_spot' %}"></a></li>
+
                         </ul>
                       </li>
                       <li class="nav-item dropdown">
@@ -123,7 +123,7 @@
                     <li class="nav-item"> <a href="{% url 'profile_view' %}" class="btn btn-main btn-round-full">Profile</a></li>
                 {% else %}
                     <li class="nav-item"> <a href="{% url 'login' %}" class="btn btn-main btn-round-full">Login</a></li>
-                    <li class="nav-item"> <a href="{% url 'register' %}" class="btn btn-main btn-round-full">Register</a></li>
+                    <li class="nav-item"> <a href="{% url 'signup' %}" class="btn btn-main btn-round-full">Register</a></li>
                 {% endif %}
                
                 </ul>
@@ -157,9 +157,9 @@
                         <p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
     
                         <ul class="list-inline footer-socials mt-4">
-                            <li class="list-inline-item"><a href="https://www.facebook.com/themefisher"><i class="icofont-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="https://twitter.com/themefisher"><i class="icofont-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="https://www.pinterest.com/themefisher/"><i class="icofont-linkedin"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="icofont-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="icofont-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="icofont-linkedin"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -170,11 +170,11 @@
                         <div class="divider mb-4"></div>
     
                         <ul class="list-unstyled footer-menu lh-35">
-                            <li><a href="#">Surgery </a></li>
-                            <li><a href="#">Wome's Health</a></li>
-                            <li><a href="#">Radiology</a></li>
-                            <li><a href="#">Cardioc</a></li>
-                            <li><a href="#">Medicine</a></li>
+                            <li><a href="#">Laboratory services </a></li>
+                            <li><a href="#">Heart Disease</a></li>
+                            <li><a href="#">Dental Care</a></li>
+                            <li><a href="#">Body Surgery</a></li>
+                            <li><a href="#">Neurological Surgery</a></li>
                         </ul>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                                 <i class="icofont-email mr-3"></i>
                                 <span class="h6 mb-0">Support Available for 24/7</span>
                             </div>
-                            <h4 class="mt-2"><a href="tel:+23-345-67890">Support@email.com</a></h4>
+                            <h4 class="mt-2"><a href="tel:+23-345-67890">newdawn.medic@gmail.com</a></h4>
                         </div>
     
                         <div class="footer-contact-block">
@@ -212,7 +212,7 @@
                                 <i class="icofont-support mr-3"></i>
                                 <span class="h6 mb-0">Mon to Fri : 08:30 - 18:00</span>
                             </div>
-                            <h4 class="mt-2"><a href="tel:+23-345-67890">+23-456-6588</a></h4>
+                            <h4 class="mt-2"><a href="tel:+23-345-67890">+27634334565</a></h4>
                         </div>
                     </div>
                 </div>
@@ -222,7 +222,7 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-lg-6">
                         <div class="copyright">
-                            &copy; Copyright Reserved to <span class="text-color">Novena</span> by <a href="https://themefisher.com/" target="_blank">Themefisher</a>
+                            &copy; Third Year Final Project by <span class="text-color">Programming Messiahs</span> of <a href="https://spu.ac.za/" target="_blank">SPU</a>
                         </div>
                     </div>
                     <div class="col-lg-6">

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import ProfileForm, LanguageSelectorForm, SignUpForm
-from .models import profile
+from .forms import UpdateProfileForm, LanguageSelectorForm, SignUpForm
+from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -27,25 +27,17 @@ def profile_view(request):
     
 @login_required
 def profile_edit(request):
-    user = request.user
-    try:
-        user_profile = profile.objects.get(user=request.user)
-    except profile.DoesNotExist:
-        user_profile = None
-    if request.method =='POST':
-        form = ProfileForm(request.POST, instance=user_profile)
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, instance=request.user.profile)
+        print(form)
         if form.is_valid():
-            user_profile = form.save(commit=False)
-            user_profile.user = request.user
-            user_profile.save()
-            
-            return redirect('profile')
+            form.save()
+            return redirect('profile_view')
     else:
-        form = ProfileForm(instance=user_profile)
+        form = UpdateProfileForm(instance=request.user.profile)
 
     context = {
         'form': form,
-        'user_profile': user_profile,
         
     }
     return render(request, 'home/profile_edit.html', context)
