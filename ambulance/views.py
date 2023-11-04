@@ -69,3 +69,21 @@ def request_detail(request, request_id):
         'ambulance_request': ambulance_request
     }
     return render(request, 'ambulance/request_detail.html', context)
+
+@login_required
+def update_location(request):
+    if request.user.groups.filter(name='ambulance').exists():
+        latitude = float(request.POST.get('latitude'))
+        longitude = float(request.POST.get('longitude'))
+        user = request.user
+
+        # Update the user's location using the ambulanceLocation model
+        ambulance_location, created = ambulanceLocation.objects.get_or_create(user=user)
+        ambulance_location.latitude = latitude
+        ambulance_location.longitude = longitude
+        ambulance_location.save()
+
+        return JsonResponse({'message': 'Location updated successfully'})
+    else:
+        return JsonResponse({'error': 'Permission denied'}, status=403)
+            

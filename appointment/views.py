@@ -51,6 +51,7 @@ def appointment_details(request, request_number):
             to_email = appointments.email
 
             send_mail(subject, message, from_email, [to_email])
+            return redirect('view_appointments')
     else:
         form = confirmForm()
         print('Appointments not saved')

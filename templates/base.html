@@ -97,12 +97,12 @@
                         <a class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Self help <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             <li><a class="dropdown-item" href="{% url 'appointment' %}">Make appointment</a></li>
-                            <li><a class="dropdown-item" href="{% url 'book_spot' %}"></a></li>
+                            <li><a class="dropdown-item" href="{% url 'book_spot' %}">Self Queueing</a></li>
 
                         </ul>
                       </li>
                       <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Articles <i class="icofont-thin-down"></i></a>
+                        <a class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Articles <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             <li><a class="dropdown-item" href="{% url 'blog' %}">Ithute Articles</a></li>
                             
@@ -111,13 +111,18 @@
                       </li>
                       
                    <!-- <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li> -->
-                   
-                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="icofont-thin-down"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                        <li><a class="dropdown-item" href="{% url 'view_appointments'%}">View appointment list</a></li>
-                    </ul>
-                </li>
+                   <!-- This must only be available to people under the admin group -->
+                    {% if user.is_authenticated %}
+                        {% if is_admin %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="icofont-thin-down"></i></a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                                    <li><a class="dropdown-item" href="{% url 'view_appointments' %}">View appointment list</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'view_requests' %}">View ambulance list</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    {% endif %}
                 <!-- <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li> -->
                 {% if user.is_authenticated %}
                     <li class="nav-item"> <a href="{% url 'profile_view' %}" class="btn btn-main btn-round-full">Profile</a></li>
