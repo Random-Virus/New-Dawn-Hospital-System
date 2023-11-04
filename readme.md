@@ -1,44 +1,14 @@
-# Project Name
+# hospital
+	This is a hospital management system that allows patients to book appointments and get in queue without going to the hospital in person
+	This system also allows patients to request emergency transport to the nearest hospital in case of an emergency
 
-A brief description of your project.
+# Requirements
+	See requirements.txt in the project directory
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
-
-## Introduction
-
-Provide a brief introduction to your project. What is it about? What problem does it solve? What is its main purpose?
-
-## Features
-
-List the key features of your project. You can use bullet points or a numbered list.
-
-- Feature 1
-- Feature 2
-- ...
-
-## Getting Started
-
-Provide instructions on how to get started with your project.
-
-### Prerequisites
-
-List any prerequisites or system requirements that users need to have installed before using your project.
-
-### Installation
-
-Explain the installation process step by step. You can use code blocks if necessary.
-
-```shell
-$ git clone https://github.com/yourusername/yourproject.git
-$ cd yourproject
-$ npm install
+# installing
+## 1st alt: 
+	1. Go to your terminal and type git clone https://github.com/Random-Virus/hospital.git
+	2. Navigate to the new directory and Create a virtual environment('Virtualenv env') and activate it('.\env\Scripts\activate')
+	3. Navigate to the new directory and type 'pip install requirements.txt'
+	4. Then run your django server('python manage.py runserver')
+	5. 

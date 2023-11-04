@@ -16,8 +16,8 @@ def index(request):
 def profile_view(request):
     user = request.user
     try:
-        user_profile = profile.objects.get(user=user)
-    except profile.DoesNotExist:
+        user_profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
         user_profile = None
     
     context = {
