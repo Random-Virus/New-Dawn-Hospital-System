@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--inner banner-->
+{% if messages %}
+<div class="alert alert-success text-center" id="alert-msg">
+  {% for message in messages %}
+  <h3>{{ message }}</h3>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="inner-banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h1>Today's Queue</h1>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <h5>Awaiting Consultation</h5>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Spot Number</th>
+              <th>Status</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for patient in patients %}
+          {% if patient.status == "Awaiting Consultation" %}
+          <tr>
+              <td>{{ patient.first_name }}</td>
+              <td>{{ patient.last_name }}</td>
+              <td>{{ patient.spot_number }}</td>
+              <td>{{ patient.status }}</td>
+              <td>
+                  <a class="btn btn-success">Take In</a>
+                  <a class="btn btn-warning">Notify The User</a>
+              </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+      </tbody>
+  </table>
+  
+
+  <h5>Awaiting Consultation</h5>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Spot Number</th>
+              <th>Status</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for patient in patients %}
+          {% if patient.status == "In Consultation" %}
+          <tr>
+              <td>{{ patient.first_name }}</td>
+              <td>{{ patient.last_name }}</td>
+              <td>{{ patient.spot_number }}</td>
+              <td>{{ patient.status }}</td>
+              <td>
+                <a class="btn btn-success" data-patient-id="{{ patient.id_number }}">Take In</a>
+                  <a class="btn btn-warning">Notify The User</a>
+              </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+      </tbody>
+  </table>
+  
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.btn-success').on('click', function() {
+        var patientId = $(this).data('patient-id');  // Assuming you have an HTML attribute to store patient ID
+        $.ajax({
+            url: '/update_patient_status/' + patientId + '/',
+            type: 'POST',
+            success: function(data) {
+                // Update the status displayed in the table
+                $(this).closest('tr').find('.status').text('In Consultation');
+            },
+            error: function() {
+                alert('Status update failed');
+            }
+        });
+    });
+});
+</script>
+
+
+{% endblock content %}

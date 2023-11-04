@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--inner banner-->
+{% if messages %}
+<div class="alert alert-success text-center" id="alert-msg">
+  {% for message in messages %}
+  <h3>{{ message }}</h3>
+  {% endfor %}
+</div>
+{% endif %}
+
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  <div class="block text-center">
+			<h1 class="text-capitalize mb-5 text-lg">Your Appointments</h1>
+		
+			
+  
+		
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+  <section class="appoinment section">
+    
+  
+    <div class="container">
+
+      <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Type (Service)</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <th scope="row">{{ appointment.service }}</th>
+                <td>{{ appointment.request_date.date }}</td>
+                <td>
+                    {% if appointment.is_confirmed %}
+                        Confirmed
+                    {% else %}
+                        Not Confirmed
+                    {% endif %}
+                </td>
+                <td>{{ appointment.request_date.time }}</td>
+
+                <td>  {% if appointment.is_confirmed %}
+                  <a  href="{% url 'appointment_details' appointment.request_number %}">
+                    More Info<!-- HTML entity for the eye icon -->
+                  </a>
+                {% else %}
+                 
+                {% endif %}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
+</div>
+
+
+</section>
+
+{% endblock content %}

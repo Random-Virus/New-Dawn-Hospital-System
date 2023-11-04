@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<body id="top">
+<!-- Slider Start -->
+<section class="banner">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 col-xl-7">
+				<div class="block">
+					<div class="divider mb-3"></div>
+					<span class="text-uppercase text-sm letter-spacing ">New Dawn Private Hospital</span>
+					<h1 class="mb-3 mt-3">Your most trusted health partner</h1>
+					
+					<p class="mb-4 pr-5">
+						At New Dawn Private Hospital, we are dedicated to providing high-quality healthcare services. With a team of experienced professionals, we are your most trusted health partner. We offer a wide range of medical services to ensure your well-being.
+					</p>
+					
+					<div class="btn-container ">
+						<a href="{% url 'appointment' %}"  class="btn btn-main-2 btn-icon btn-round-full">Make appoinment <i class="icofont-simple-right ml-2  "></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="features">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="feature-block d-lg-flex">
+					<div class="feature-item mb-5 mb-lg-0">
+						<div class="feature-icon mb-4">
+							<i class="icofont-surgeon-alt"></i>
+						</div>
+					
+						<h4 class="mb-3">Online Appoinment</h4>
+						<p class="mb-4">Get speedy access to medical care with our hassle-free doctor appointment service.</p>
+						<a href="{% url 'appointment' %}" class="btn btn-main btn-round-full">Schedule Appoinment</a>
+					</div>
+				
+			
+				
+					<div class="feature-item mb-5 mb-lg-0">
+						<div class="feature-icon mb-4">
+							<i class="icofont-ambulance"></i> 
+						</div>
+					
+						<h4 class="mb-3">Online Ambulance Booking</h4>
+						<p class="mb-4">In emergencies, trust our swift ambulance booking for prompt assistance.</p>
+						<a href="{% url 'ambulanceRequest' %}" class="btn btn-main btn-round-full">Book Ambulance</a>
+					</div>
+					<div class="feature-item mb-5 mb-lg-0">
+						<div class="feature-icon mb-4">
+							<i class="icofont-people"></i>
+						</div>
+				
+						<h4 class="mb-3">Self-Service Queue</h4>
+						<p class="mb-4">Skip lines and save time using our efficient self-service queue system.</p>
+						<a href="{% url 'book_spot'%}" class="btn btn-main btn-round-full">Join Queue</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section about">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-4 col-sm-6">
+				<div class="about-img">
+					<img src="{% static 'images/blog/blog-1.jpg'%}" alt="" class="img-fluid">
+					<img src="{% static 'images/blog/blog-2.jpg'%}" alt="" class="img-fluid mt-4">
+				</div>
+			</div>
+			<div class="col-lg-4 col-sm-6">
+				<div class="about-img mt-4 mt-lg-0">
+					<img src="{% static 'images/blog/blog-4.jpg'%}" alt="" class="img-fluid">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="about-content pl-4 mt-4 mt-lg-0">
+					<h2 class="title-color">Personal care <br>& healthy living</h2>
+					<p class="mt-4 mb-5">We provide best leading medicle service Nulla perferendis veniam deleniti ipsum officia dolores repellat laudantium obcaecati neque.</p>
+
+					<a href="#" class="btn btn-main-2 btn-round-full btn-icon">Services</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="cta-section ">
+	<div class="container">
+		<div class="cta position-relative">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-doctor"></i>
+						<span class="h3">58</span>k
+						<p>Happy People</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-flag"></i>
+						<span class="h3">700</span>+
+						<p>Surgery Comepleted</p>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-badge"></i>
+						<span class="h3">40</span>+
+						<p>Expert Doctors</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="counter-stat">
+						<i class="icofont-globe"></i>
+						<span class="h3">20</span>
+						<p>Worldwide Branch</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="section service gray-bg">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7 text-center">
+				<div class="section-title">
+					<h2>Award winning patient care</h2>
+					<div class="divider mx-auto my-4"></div>
+					<p>Lets know moreel necessitatibus dolor asperiores illum possimus sint voluptates incidunt molestias nostrum laudantium. Maiores porro cumque quaerat.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="service-item mb-4">
+					<div class="icon d-flex align-items-center">
+						<i class="icofont-laboratory text-lg"></i>
+						<h4 class="mt-3 mb-3">Laboratory services</h4>
+					</div>
+
+					<div class="content">
+						<p class="mb-4">Laboratory services encompass a wide range of medical tests and analyses performed in clinical, research, or diagnostic laboratories to aid in disease diagnosis, treatment, and research.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="service-item mb-4">
+					<div class="icon d-flex align-items-center">
+						<i class="icofont-heart-beat-alt text-lg"></i>
+						<h4 class="mt-3 mb-3">Heart Disease</h4>
+					</div>
+					<div class="content">
+						<p class="mb-4">Heart disease, or cardiovascular disease, refers to a range of conditions that affect the heart and blood vessels, often leading to issues like heart attacks and strokes. It's a major global health concern.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="service-item mb-4">
+					<div class="icon d-flex align-items-center">
+						<i class="icofont-tooth text-lg"></i>
+						<h4 class="mt-3 mb-3">Dental Care</h4>
+					</div>
+					<div class="content">
+						<p class="mb-4">Dental care involves maintaining oral hygiene, preventing dental issues, and treating dental problems, including regular check-ups, cleanings, and oral health practices.</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="service-item mb-4">
+					<div class="icon d-flex align-items-center">
+						<i class="icofont-crutch text-lg"></i>
+						<h4 class="mt-3 mb-3">Body Surgery</h4>
+					</div>
+
+					<div class="content">
+						<p class="mb-4">Surgery is performed to diagnose or treat diseases, injuries, modify bodily functions, enhance appearance, or remove unwanted tissues or foreign objects.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="service-item mb-4">
+					<div class="icon d-flex align-items-center">
+						<i class="icofont-brain-alt text-lg"></i>
+						<h4 class="mt-3 mb-3">Neurological Surgery</h4>
+					</div>
+					<div class="content">
+						<p class="mb-4">Neurological surgery is the medical specialty concerned with the surgical treatment of disorders which affect any portion of the nervous system.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="service-item mb-4">
+					<div class="icon d-flex align-items-center">
+						<i class="icofont-dna-alt-1 text-lg"></i>
+						<h4 class="mt-3 mb-3">Gynecology</h4>
+					</div>
+					<div class="content">
+						<p class="mb-4">Gynaecology or gynecology is the area of medicine that involves the treatment of women's diseases, especially those of the reproductive organs.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7">
+				<div class="section-title text-center">
+					<h2>We served over 5000+ Patients</h2>
+					<div class="divider mx-auto my-4"></div>
+					
+					<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 16">
+						<path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+					  </svg>
+					<p>Kudus</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7">
+				<div class="section-title text-center">
+					<h2>Partners who support us</h2>
+					<div class="divider mx-auto my-4"></div>
+					<p>Kudus to our sponsors</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row clients-logo">
+			<div class="col-lg-3">
+				<div class="client-thumb">
+					<img src="{% static 'images/service/123.webp'%}" alt="" class="img-fluid">
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="client-thumb">
+					<img src="{% static 'images/service/images.png'%}" alt="" class="img-fluid">
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="client-thumb">
+					<img src="{% static 'images/service/images2.png'%}" alt="" class="img-fluid">
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="client-thumb">
+					<img src="{% static 'images/blog/blog-4.jpg'%}" alt="" class="img-fluid">
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</section>
+<!-- footer Start -->
+
+
+   
+
+
+{% endblock content %}
+
+
+   
