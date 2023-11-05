@@ -1,0 +1,47 @@
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Locations</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGNMcoULjUBojjZ2qnUWxiWMIwtG0q3KQ&callback=initMap" async defer></script>
+</head>
+<body>
+    <!-- Map and hospital markers will be added here -->
+    <div id="map" style="height: 400px;"></div>
+    <script>
+       
+        // Function to initialize the map
+        function initializeMap() {
+            const mapOptions = {
+                center: { lat: 0, lng: 0 },  // Set the initial map center
+                zoom: 2,  // Set the initial zoom level
+            };
+            const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            // Fetch hospital data
+            fetch('/get_hospital_locations/')  // Replace with your URL
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(hospital => {
+                        // Create a marker for each hospital
+                        console.log(hospital.latitude, hospital.longitude);
+                        const marker = new google.maps.Marker({
+                            position: { lat: hospital.latitude, lng: hospital.longitude },
+                            map: map,
+                            title: hospital.name,
+                        });
+                    });
+                });
+        }
+
+        // Event listener for when the window loads
+        window.addEventListener('load', initializeMap);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.min.js"></script>
+
+    
+</body>

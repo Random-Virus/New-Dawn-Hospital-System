@@ -7,6 +7,7 @@ from allauth.socialaccount.models import SocialAccount
 from .forms import UpdateProfileForm, LanguageSelectorForm, SignUpForm
 from .models import Profile
 from appointment.models import Appointment
+from datetime import date
 
 def index(request):
     return render(request, 'home/index.html')
@@ -15,6 +16,8 @@ def index(request):
 def profile_view(request):
     user = request.user
     user_profile, created = Profile.objects.get_or_create(user=user)
+
+    google_account = None
 
     if not created:
     # Check if the user has a linked Google account
@@ -32,7 +35,7 @@ def profile_view(request):
         user_profile.email = google_data.get('email', user_profile.email)
         user_profile.phone = google_data.get('phone_number', user_profile.phone)
         user_profile.id_number = google_data.get('id_number', user_profile.id_number)
-        user_profile.date_of_birth = google_data.get('date_of_birth', '1999-01-01')
+        user_profile.date_of_birth = google_data.get('date_of_birth', date(1999, 1, 1))
         user_profile.medical_aid = google_data.get('medical_aid', user_profile.medical_aid)
         user_profile.address = google_data.get('address', user_profile.address)
         user_profile.city = google_data.get('city', user_profile.city)

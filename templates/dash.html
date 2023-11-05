@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Include required libraries -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <!-- Container for the dynamic dashboard -->
+    <div id="dashboard-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('selfqueue/export_data/')  // Replace with your export data endpoint
+                .then(response => response.text())
+                .then(data => {
+                    // Parse the CSV data
+                    const parsedData = Papa.parse(data, { header: true });
+                    console.log(parsedData.data);
+                    // Extract data for visualization (e.g., id and spot_number)
+                    const xData = parsedData.data.map(entry => entry.id);
+                    const yData = parsedData.data.map(entry => entry.spot_number);
+
+                    // Create a Plotly chart
+                    const trace = {
+                        x: xData,
+                        y: yData,
+                        type: 'scatter',
+                    };
+
+                    const layout = {
+                        title: 'Patient Queue Dashboard',
+                        xaxis: { title: 'Patient ID' },
+                        yaxis: { title: 'Spot Number' },
+                    };
+
+                    Plotly.newPlot('dashboard-container', [trace], layout);
+                });
+        });
+    </script>
+</body>
+</html>

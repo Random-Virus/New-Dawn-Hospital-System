@@ -3,6 +3,8 @@ from .forms import ambulanceRequestForm
 from .models import ambulanceRequest, Hospital
 from django.contrib.auth.decorators import login_required
 from geopy.distance import geodesic
+from django.http import JsonResponse
+# from .models import HeatmapData
 # Create your views here.
 
 @login_required
@@ -69,3 +71,34 @@ def request_detail(request, request_id):
         'ambulance_request': ambulance_request
     }
     return render(request, 'ambulance/request_detail.html', context)
+
+def get_ambulance_requests_data(request):
+    ambulance_requests = ambulanceRequest.objects.all()
+    data = [
+        {
+            'latitude': request.latitude,
+            'longitude': request.longitude,
+        }
+        for request in ambulance_requests
+    ]
+    print(data)
+    return JsonResponse(data, safe=False)
+
+def dashboard(request):
+    return render(request, 'ambulance/dashboard.html')
+
+def map(request):
+    return render(request, 'ambulance/map.html')
+def hospital_locations(request):
+    hospitals = Hospital.objects.all()
+    data = [
+        {
+            'name': hospital.name,
+            'latitude': hospital.latitude,
+            'longitude': hospital.longitude,
+        }
+        for hospital in hospitals
+    ]
+    print(data)
+    return JsonResponse(data, safe=False)
+

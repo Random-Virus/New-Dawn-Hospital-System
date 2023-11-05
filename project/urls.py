@@ -25,6 +25,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('auth', include('authitacation.urls')),
     path('ambulance/', include('ambulance.urls')),
+    path('selfqueue/', include('selfqueue.urls')),
 
 
     ##################################

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <!-- Include required libraries -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    </head>
+    <body>
+        <div id="heatmap-container"></div>
+    </body>
+
+    <script>
+        // heatmap.js
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/ambulance/get_ambulance_requests_data/')
+                .then(response => response.json())
+                .then(data => {
+                    const latitude = data.map(request => request.latitude);
+                    const longitude = data.map(request => request.longitude);
+
+                    const heatmapData = [{
+                        type: 'heatmapgl',
+                        z: [latitude, longitude],
+                        colorscale: 'YlOrRd',
+                        showscale: true
+                    }];
+
+                    const layout = {
+                        title: 'Ambulance Request Heatmap',
+                        geo: {
+                            scope: 'South Africa',
+                        }
+                    };
+
+                    Plotly.newPlot('heatmap-container', heatmapData, layout);
+                });
+        });
+
+    </script>
+{% endblock %}

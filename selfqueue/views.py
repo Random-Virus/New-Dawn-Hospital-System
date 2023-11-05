@@ -3,14 +3,20 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import BookingForm
-from .models import PatientQueue
+from .models import PatientQueue, Symptom
 from datetime import datetime, timedelta
 from django.urls import reverse
 from twilio.rest import Client
 from django.contrib.auth.models import User
-
+from django.http import HttpResponse
 from django.db.models import Max
+import csv
+from django.db.models import Count
+from django.db.models.functions import ExtractHour
+import numpy as np
 
+#import jsonresponse
+from django.http import JsonResponse
 # Configure the logging settings
 logger = logging.getLogger(__name__)
 @login_required
@@ -150,3 +156,71 @@ def writeReport(request,id_number):
     
     
     return render(request,'selfqueue/writeReport.html',{'patient':patient})
+
+
+
+
+def export_data(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="patient_data.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['id', 'spot_number'])
+
+    patients = PatientQueue.objects.all().values_list('id', 'spot_number')
+    for patient in patients:
+        writer.writerow(patient)
+
+    return response
+
+
+def get_patient_data(request):
+    patient_data = [{'id': patient.id, 'spot_number': patient.spot_number} for patient in PatientQueue.objects.all()]
+    return JsonResponse(patient_data, safe=False)
+
+def dashboard_view(request):
+    return render(request, 'selfqueue/sympdata.html')
+
+def symptom_data(request):
+    symp_data = Symptom.objects.annotate(frequency=Count('patientqueue'))
+
+    # Process the data and create lists of symptoms and frequencies
+    symptoms = [entry.name for entry in symp_data]
+    frequencies = [entry.frequency for entry in symp_data]
+
+    data = {
+        'symptoms': symptoms,
+        'frequencies': frequencies,
+    }
+    print(data)
+    return JsonResponse(data)
+
+def patient_distribution_data(request):
+    data = PatientQueue.objects.all()
+
+    # Create a matrix for the heatmap
+    heatmap_data = np.zeros((24, 7))
+
+    for entry in data:
+        estimated_time = entry.estimated_time
+        if estimated_time:
+            hour = estimated_time.hour
+            day_of_week = estimated_time.weekday()
+            heatmap_data[hour][day_of_week] += 1
+    print(heatmap_data.tolist())
+    return JsonResponse({'data': heatmap_data.tolist()})
+
+def feedback(request, doctor_id):
+    doctor = get_object_or_404(Doctor, pk=doctor_id)
+
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            # Create and save the feedback, associating it with the provided doctor
+            feedback = form.save(commit=False)
+            feedback.doctor = doctor
+            feedback.save()
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'selfqueue/feedback.html', {'form': form, 'doctor': doctor})
