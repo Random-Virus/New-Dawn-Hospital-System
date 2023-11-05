@@ -2,13 +2,14 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .forms import BookingForm
-from .models import PatientQueue, Symptom
+from .forms import BookingForm, MedicalRecordForm
+from .models import PatientQueue, Symptom, MedicalRecord
+from django.contrib import messages
 from datetime import datetime, timedelta
 from django.urls import reverse
 from twilio.rest import Client
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+
 from django.db.models import Max
 import csv
 from django.db.models import Count
@@ -128,9 +129,9 @@ def view_queue(request):
         'patients': patients, 
     }
     return render(request, 'selfqueue/view_queue.html', context)
-def take_in_patient(request, id_number):
+def take_in_patient(request, spot_number):
     try:
-        patient = PatientQueue.objects.get(id_number=id_number)
+        patient = PatientQueue.objects.get(spot_number=spot_number)
         if patient.status == 'Awaiting Consultation':
             patient.status = 'In Consultation'
             patient.save()
@@ -150,12 +151,59 @@ def notify_next_patient():
             send_twilio_message(message)
     except PatientQueue.DoesNotExist:
         pass  # Handle no next patient
-def writeReport(request,id_number):
+from django.core.mail import send_mail
+
+
+def writeReport(request, spot_number):
+    patient = PatientQueue.objects.get(spot_number=spot_number)
+
+    if request.method == 'POST':
+        form = MedicalRecordForm(request.POST)
+        if form.is_valid():
+            medical_record = form.save(commit=False)
+            medical_record.patient = patient
+            medical_record.user = patient.user
+            medical_record.save()
+            
+            # Send an email to the patient with a link to provide feedback
+            feedback_url = request.build_absolute_uri(reverse('feedback', args=[medical_record.doctor_id]))
+            subject = 'Please provide feedback on your consultation'
+            message = f'Dear {patient.first_name},\n\nPlease provide feedback on your recent consultation. Click the following link to provide your feedback:\n{feedback_url}'
+            from_email = settings.EMAIL_HOST_USER
+              # Replace with your email
+            recipient_list = [patient.user.email]  # Assuming the patient's email is stored in the user model
+
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+            
+            # Add a success message
+            messages.success(request, 'Medical record has been created successfully.')
+            if patient.status == 'In Consultation':
+                patient.status = 'Done with Consultation'
+                patient.save()
+            return redirect('view_queue')
+        else:
+            # Add an error message
+            messages.error(request, 'There was an error in the form. Please check your input.')
+
+    else:
+        form = MedicalRecordForm()
     
-    patient = PatientQueue.objects.get(id_number=id_number)
-    
-    
-    return render(request,'selfqueue/writeReport.html',{'patient':patient})
+    return render(request, 'selfqueue/writeReport.html', {'form': form, 'patient': patient, 'messages': messages.get_messages(request)})
+
+def feedback(request, doctor_id):
+    doctor = get_object_or_404(Doctor, pk=doctor_id)
+
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            # Create and save the feedback, associating it with the provided doctor
+            feedback = form.save(commit=False)
+            feedback.doctor = doctor
+            feedback.save()
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'selfqueue/feedback.html', {'form': form, 'doctor': doctor})
 
 
 

@@ -1,6 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User  # Im
 from appointment.models import Doctor
+from django.contrib.auth.models import User  # Im
+class Feedback(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    survey_question = models.CharField(max_length=3, choices=[('yes', 'Yes'), ('no', 'No')])
+    rating = models.PositiveIntegerField()
+    message = models.TextField()
+    
 class Symptom(models.Model):
     name = models.CharField(max_length=255)
 
@@ -27,8 +33,6 @@ class PatientQueue(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
-
 class MedicalRecord(models.Model):
     patient = models.ForeignKey(PatientQueue, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='medical_records')
@@ -40,11 +44,5 @@ class MedicalRecord(models.Model):
     referrals = models.TextField(blank=True)
     further_examination = models.TextField(blank=True)
 
-    def _str_(self):
+    def __str__(self):
         return f"Medical Record for {self.patient.first_name} {self.patient.last_name}"
-
-class Feedback(models.Model):
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    survey_question = models.CharField(max_length=3, choices=[('yes', 'Yes'), ('no', 'No')])
-    rating = models.PositiveIntegerField()
-    message = models.TextField()
