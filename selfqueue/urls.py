@@ -6,5 +6,7 @@ urlpatterns = [
       path('', views.results, name='results'),
       path('feedback/', views.feedback, name='feedback'),# For the main page
       path('view_queue/', views.view_queue, name='view_queue'),
-      path('update_patient_status/<int:id_number>/', views.update_patient_status, name='update_patient_status'),
+      path('writeReport/', views.writeReport, name='writeReport'),
+      path('take-in/<int:id_number>/', views.take_in_patient, name='take_in_patient'),
+      path('writeReport/<int:id_number>/', views.writeReport, name='writeReport'),
 ]

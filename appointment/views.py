@@ -107,7 +107,7 @@ def confirm_appointment(request, request_number):
 
     else:
         print("Two")
-    messages.success(request, 'Appointment confirmed successfully!')
+ 
     return redirect('view_appointments')
 
 def send_twilio_message(appointment):

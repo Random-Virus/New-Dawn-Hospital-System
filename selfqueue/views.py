@@ -4,8 +4,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import BookingForm
 from .models import PatientQueue
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from datetime import datetime, timedelta
 from django.urls import reverse
 from twilio.rest import Client
@@ -52,9 +50,10 @@ def book_spot(request):
             symptoms = form.cleaned_data.get('symptoms')
             duration = form.cleaned_data.get('duration')
             booking.symptoms.set(symptoms)  
-            booking.duration = duration   
-
-            send_twilio_message(booking)
+            booking.duration = duration  
+            patient = booking  
+            message_body = f"Hello, you have successfully reserved your place at New Dawn Hospital. Patient Name: {patient.first_name} {patient.last_name}, Spot Number: {patient.spot_number}, Predicted Consultation Time: {patient.estimated_time}. Please be informed that our scheduling system is subject to the availability of our medical professionals and other operational considerations."
+            send_twilio_message(message_body)
 
             return HttpResponseRedirect(reverse('results'))
     else:
@@ -103,14 +102,13 @@ def assign_spot_number(patient):
     else:
         patient.spot_number = 1
 
-def send_twilio_message(patient):
+def send_twilio_message(message):
     account_sid = 'AC810660139ff7571863cbf97b8f6b0e21'
     auth_token = '51b59aab2bdfb9ddbc4dc44f96b90fb6'
     client = Client(account_sid, auth_token)
-    number = patient.phone
-    message_body = f"Hello, you have successfully reserved your place at New Dawn Hospital. Patient Name: {patient.first_name} {patient.last_name}, Spot Number: {patient.spot_number}, Predicted Consultation Time: {patient.estimated_time}. Please be informed that our scheduling system is subject to the availability of our medical professionals and other operational considerations."
+    
     message = client.messages.create(
-        body=message_body,
+        body=message,
         from_='+14143770567',
         to='+27810207623'
     )
@@ -120,15 +118,35 @@ def feedback(request):
 
 def view_queue(request):
     patients = PatientQueue.objects.all()  # Retrieve all PatientQueue objects
-
-
     context = {
-        'patients': patients,
-       
+        'patients': patients, 
     }
     return render(request, 'selfqueue/view_queue.html', context)
-def update_patient_status(request, id_number):
-    patient = get_object_or_404(PatientQueue, pk=id_number)
-    patient.status = 'In Consultation'
-    patient.save()
-    return JsonResponse({'message': 'Status updated successfully'})
+def take_in_patient(request, id_number):
+    try:
+        patient = PatientQueue.objects.get(id_number=id_number)
+        if patient.status == 'Awaiting Consultation':
+            patient.status = 'In Consultation'
+            patient.save()
+
+            # Notify the next patient
+            notify_next_patient()
+
+    except PatientQueue.DoesNotExist:
+        pass  # Handle patient not found
+    return redirect('view_queue')
+
+def notify_next_patient():
+    try:
+        next_patient = PatientQueue.objects.filter(status='Awaiting Consultation').order_by('spot_number').first()
+        if next_patient:
+            message = f"Hello {next_patient.first_name},\n\nYour consultation is coming up in a few minutes. Please prepare to see the doctor. Thank you for your patience and cooperation. If you have any questions, feel free to ask the receptionist."
+            send_twilio_message(message)
+    except PatientQueue.DoesNotExist:
+        pass  # Handle no next patient
+def writeReport(request,id_number):
+    
+    patient = PatientQueue.objects.get(id_number=id_number)
+    
+    
+    return render(request,'selfqueue/writeReport.html',{'patient':patient})

@@ -43,8 +43,8 @@
               <td>{{ patient.spot_number }}</td>
               <td>{{ patient.status }}</td>
               <td>
-                  <a class="btn btn-success">Take In</a>
-                  <a class="btn btn-warning">Notify The User</a>
+                <a href="{% url 'take_in_patient' patient.id_number %}" class="btn btn-success">Take In</a>
+                <a class="btn btn-warning">Notify The User</a>
               </td>
           </tr>
           {% endif %}
@@ -53,7 +53,7 @@
   </table>
   
 
-  <h5>Awaiting Consultation</h5>
+  <h5>In Consultation</h5>
   <table class="table table-striped">
       <thead>
           <tr>
@@ -73,8 +73,8 @@
               <td>{{ patient.spot_number }}</td>
               <td>{{ patient.status }}</td>
               <td>
-                <a class="btn btn-success" data-patient-id="{{ patient.id_number }}">Take In</a>
-                  <a class="btn btn-warning">Notify The User</a>
+                <a class="btn btn-success" href="{% url 'writeReport' patient.id_number %}">Write Diagnose Report</a>
+                
               </td>
           </tr>
           {% endif %}
@@ -84,24 +84,6 @@
   
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.btn-success').on('click', function() {
-        var patientId = $(this).data('patient-id');  // Assuming you have an HTML attribute to store patient ID
-        $.ajax({
-            url: '/update_patient_status/' + patientId + '/',
-            type: 'POST',
-            success: function(data) {
-                // Update the status displayed in the table
-                $(this).closest('tr').find('.status').text('In Consultation');
-            },
-            error: function() {
-                alert('Status update failed');
-            }
-        });
-    });
-});
-</script>
 
 
 {% endblock content %}

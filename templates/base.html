@@ -104,13 +104,18 @@
                       </li>
                       
                    <!-- <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li> -->
-                   
-                   <li class="nav-item dropdown">
+                {% if user.is_staff %}
+                    <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                        <li><a class="dropdown-item" href="{% url 'view_appointments'%}">View appointment list</a></li>
+                       
+                    <li>
+                        <a class="dropdown-item" href="{% url 'view_appointments'%}">View appointment list</a>
+                    </li>
+                 
                     </ul>
-                </li>
+                    </li>
+                 {% endif %}
                 <!-- <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li> -->
                 {% if user.is_authenticated %}
 

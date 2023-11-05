@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--inner banner-->
+{% if messages %}
+<div class="alert alert-success text-center" id="alert-msg">
+  {% for message in messages %}
+  <h3>{{ message }}</h3>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="inner-banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+     
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+ 
+
+  <form method="post"> 
+    <h1>Write Medical Report</h1>
+    <h3>Information about the Patient's Visit:</h3>
+    <div class="patient-info">
+    
+      <table class="table table-bordered">
+          <tr>
+              <td><strong>First Name:</strong></td>
+              <td>{{ patient.first_name }}</td>
+          </tr>
+          <tr>
+              <td><strong>Last Name:</strong></td>
+              <td>{{ patient.last_name }}</td>
+          </tr>
+          <tr>
+              <td><strong>ID Number:</strong></td>
+              <td>{{ patient.id_number }}</td>
+          </tr>
+          <tr>
+              <td><strong>Symptoms:</strong></td>
+              <td>{{ patient.symptoms }}</td>
+          </tr>
+          <tr>
+              <td><strong>Ticket Number:</strong></td>
+              <td>{{ patient.spot_number }}</td>
+          </tr>
+      </table>
+  </div>
+  <p>Information about the Doctor:</p>
+  <div class="form-group">
+    <label for="service">Doctor</label>
+    <input type="text" class="form-control" id="fullName" name="doctor" placeholder="Enter Doctor's name" required>
+</div>
+<div class="form-group">
+  <label for="service">Health  Code</label>
+  <input type="text" class="form-control" id="code" name="doctorCode" placeholder="Enter Doctor's Code" required>
+</div>
+<p>Information about the Patient's Diagnose Report:</p>
+      <div class="form-group">
+          <label for="diagnosis">Diagnosis</label>
+          <textarea class="form-control" id="diagnosis" name="diagnosis" rows="5" placeholder="Enter diagnosis" required></textarea>
+      </div>
+      <div class="form-group">
+          <label for="prescription">Prescription</label>
+          <textarea class="form-control" id="prescription" name="prescription" rows="5" placeholder="Enter prescription" required></textarea>
+      </div>
+      <div class="form-group">
+          <label for="service">Service</label>
+          <input type="text" class="form-control" id="service" name="service" placeholder="Enter service" required>
+      </div>
+      <div class="form-group">
+          <label for="date">Date</label>
+          <input type="date" class="form-control" id="date" name="date" required>
+      </div>
+      <div class="form-group">
+          <label for="referrals">Referrals</label>
+          <textarea class="form-control" id="referrals" name="referrals" rows="5" placeholder="Enter referrals"></textarea>
+      </div>
+      <div class="form-group">
+          <label for="further_examination">Further Examination</label>
+          <textarea class="form-control" id="further_examination" name="further_examination" rows="5" placeholder="Enter further examination"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{% endblock content %}
