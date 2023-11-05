@@ -124,14 +124,15 @@ def feedback(request):
     return render(request, 'selfqueue/feedback.html')
 
 def view_queue(request):
-    patients = PatientQueue.objects.all()  # Retrieve all PatientQueue objects
+    patients = PatientQueue.objects.all()
     context = {
         'patients': patients, 
     }
     return render(request, 'selfqueue/view_queue.html', context)
-def take_in_patient(request, spot_number):
+
+def take_in_patient(request, id_number):
     try:
-        patient = PatientQueue.objects.get(spot_number=spot_number)
+        patient = PatientQueue.objects.get(id_number=id_number)
         if patient.status == 'Awaiting Consultation':
             patient.status = 'In Consultation'
             patient.save()
@@ -154,8 +155,8 @@ def notify_next_patient():
 from django.core.mail import send_mail
 
 
-def writeReport(request, spot_number):
-    patient = PatientQueue.objects.get(spot_number=spot_number)
+def writeReport(request, id_number):
+    patient = PatientQueue.objects.get(id_number=id_number)
 
     if request.method == 'POST':
         form = MedicalRecordForm(request.POST)

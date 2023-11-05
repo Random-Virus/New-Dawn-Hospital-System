@@ -43,8 +43,8 @@
               <td>{{ patient.spot_number }}</td>
               <td>{{ patient.status }}</td>
               <td>
-                <a href="{% url 'take_in_patient' patient.spot_number %}" class="btn btn-success">Take In</a>
-                <a class="btn btn-warning">Notify The User</a>
+                <a href="{% url 'take_in_patient' patient.id_number %}" class="btn btn-success">Take In</a>
+                <!-- <a class="btn btn-warning">Notify The User</a> -->
               </td>
           </tr>
           {% endif %}
@@ -73,7 +73,7 @@
               <td>{{ patient.spot_number }}</td>
               <td>{{ patient.status }}</td>
               <td>
-                <a class="btn btn-success" href="{% url 'writeReport' patient.spot_number %}">Write Diagnose Report</a>
+                <a class="btn btn-success" href="{% url 'writeReport' patient.id_number %}">Write Diagnose Report</a>
                 
               </td>
           </tr>
