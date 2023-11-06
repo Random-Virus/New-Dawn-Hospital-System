@@ -1,7 +1,7 @@
 import logging
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import BookingForm, MedicalRecordForm
 from .models import PatientQueue, Symptom, MedicalRecord, PatientQueueHistory
 from django.contrib import messages

@@ -77,31 +77,27 @@
           
               <div class="collapse navbar-collapse" id="navbarmain">
                 <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'index' %}">Home</a>
-                  </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
                 
-            
-                  
-              
-                    
-    
-                      <li class="nav-item dropdown">
+
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Self help <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             <li><a class="dropdown-item" href="{% url 'appointment' %}">Appointment Request</a></li>
                             <li><a class="dropdown-item" href="{% url 'book_spot' %}">Self-Service Kiosk</a></li>
                             <li><a class="dropdown-item" href="{% url 'ambulanceRequest' %}">Ambulance Request</a></li>
                         </ul>
-                      </li>
-                      <li class="nav-item dropdown">
+                    </li>
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Articles <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             <li><a class="dropdown-item" href="{% url 'blog' %}">Ithute Articles</a></li>
                             
-                         
+                            
                         </ul>
-                      </li>
+                    </li>
                       
                    <!-- <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li> -->
                 {% if user.is_staff %}
@@ -123,6 +119,7 @@
                             
                             <li><a class="dropdown-item" href="{% url 'dashboard-ambulance' %}" >Ambulance</a></li>
                             <li><a class="dropdown-item" href="{% url 'dashboard-selfqueue' %}" >Self Queue Kiosk</a></li>
+                            <li><a class="dropdown-item" href="{% url 'dashboard-appointment' %}" >Appointment</a></li>
                         </ul>
                     </li>
                  {% endif %}
@@ -134,7 +131,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             <li><a class="dropdown-item" href="{% url 'profile_view' %}">Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'viewAppointment' %}" >Appointments</a></li>
-                            <li><a class="dropdown-item" href="{% url 'medicalReport' %}">Medical History</a></li>
+                            <!-- <li><a class="dropdown-item" href="{% url 'medicalReport' %}">Medical History</a></li> -->
                         </ul>
                     </li>
                     
@@ -171,7 +168,7 @@
                         <div class="logo mb-4">
                             <img src="images/logo.png" alt="" class="img-fluid">
                         </div>
-                        <p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
+                        <p>New Dawn Public Hospital, located in Kimberley, provides affordable healthcare services to the community, despite limited resources. The hospital offers essential medical care, including emergency services, surgery, obstetrics, pediatrics, and internal medicine.</p>
     
                         <ul class="list-inline footer-socials mt-4">
                             <li class="list-inline-item"><a href=""><i class="icofont-facebook"></i></a></li>

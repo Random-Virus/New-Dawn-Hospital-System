@@ -70,9 +70,9 @@
                         // x: symptoms,
                         // y: frequencies,
                         labels: symptoms,
-                        labels: symptoms,
+                        
                         values: frequencies,
-                        type: 'bar'
+                        type: 'pie'
                     };
         
                     const layout = {
@@ -98,14 +98,22 @@
                         x: daysOfWeek,
                         y: hoursOfDay,
                         z: heatmapData,
-                        type: 'heatmap'
+                        type: 'heatmap',
+                        colorscale: 'viridis',      
                     };
     
                     const layout = {
                         title: 'Patient Distribution',
                         xaxis: { title: 'Day of the Week' },
                         yaxis: { title: 'Hour of the Day' },
-                        autosize: false
+                        autosize: false,
+                        margin: {
+                            l: 80,
+                            r: 50,
+                            b: 50,
+                            t: 80,
+                            pad: 4
+                        }
                     };
     
                     Plotly.newPlot('heatmap1', [trace], layout);

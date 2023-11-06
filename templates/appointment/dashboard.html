@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+{% block content %}
+<head>
+    <!-- Include required libraries -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- First Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Container for the dynamic dashboard -->
+              
+                <div id="confirmation-rate"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="waitlist-management"></div>
+                
+            </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div id="scheduling-patterns"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="heatmap3"></div>
+            </div>
+        
+
+        <script >
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch('/appointment/confirmation_rate_view')
+                    .then(response => response.json())
+                    .then(data => {
+                        const confirmed = data.confirmed;
+                        const total = data.total;
+            
+                        const confirmationRate = (confirmed / total) * 100;
+                        console.log(confirmationRate);
+                        const trace = {
+                            type: 'indicator',
+                            value: confirmationRate,
+                            mode: 'gauge+number',
+                            gauge: {
+                                axis: { range: [0, 100] },
+                                steps: [
+                                    { range: [0, 25], color: 'red' },
+                                    { range: [25, 50], color: 'yellow' },
+                                    { range: [50, 75], color: 'lightgreen' },
+                                    { range: [75, 100], color: 'green' }
+                                ],
+                            },
+                        };
+            
+                        const layout = {
+                            title: 'Confirmation Rate (%)',
+                        };
+            
+                        Plotly.newPlot('confirmation-rate', [trace], layout);
+                    });
+            });
+        </script>  
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch('/appointment/waitlist_management_view')
+                    .then(response => response.json())
+                    .then(data => {
+                        const timePeriods = data.timePeriods;
+                        const waitlistCounts = data.waitlistCounts;
+
+                        const trace = {
+                            x: timePeriods,
+                            y: waitlistCounts,
+                            type: 'bar',
+                        };
+                        console.log(waitlistCounts); 
+                        const layout = {
+                            title: 'Waitlist Management',
+                            xaxis: { title: 'Time Period' },
+                            yaxis: { title: 'Number of Patients' },
+                        };
+
+                        Plotly.newPlot('waitlist-management', [trace], layout);
+                    });
+            });
+
+        </script>  
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch('/appointment/scheduling_patterns_view')
+                    .then(response => response.json())
+                    .then(data => {
+                        const timePeriods = data.timePeriods;
+                        const appointmentCounts = data.appointmentCounts;
+
+                        const trace = {
+                            x: timePeriods,
+                            y: appointmentCounts,
+                            type: 'line',
+                        };
+
+                        const layout = {
+                            title: 'Appointment Scheduling Patterns',
+                            xaxis: { title: 'Time Period' },
+                            yaxis: { title: 'Number of Appointments' },
+                        };
+
+                        Plotly.newPlot('scheduling-patterns', [trace], layout);
+                    });
+            });
+
+        </script>        
+{% endblock %}
