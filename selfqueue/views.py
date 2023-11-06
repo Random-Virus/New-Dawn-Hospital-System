@@ -203,7 +203,6 @@ def writeReport(request, id_number):
         form = MedicalRecordForm()
     
     return render(request, 'selfqueue/writeReport.html', {'form': form, 'patient': patient, 'messages': messages.get_messages(request)})
-
 def feedback(request, doctor_id):
     doctor = get_object_or_404(Doctor, pk=doctor_id)
 

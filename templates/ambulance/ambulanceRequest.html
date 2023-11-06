@@ -8,8 +8,9 @@
 	  <div class="row">
 		<div class="col-md-12">
 		  <div class="block text-center">
-			<span class="text-white">Book your Seat</span>
-			<h1 class="text-capitalize mb-5 text-lg">Emergency</h1>
+			<h1 class="text-capitalize mb-5 text-lg">Emergency 24/7 Ambulance</h1>
+			<span class="text-white">Book your Ambulance</span>
+			
   
 		
 		  </div>
@@ -37,10 +38,11 @@
 			  <p class="mb-4">Please note that the use of this services is strictly for emegency situations, if found guilty of abusing this service you will be liable to pay a fine and criminal charges opened against you.</p>
 				 <form action="{% url 'ambulanceRequest' %}" class="appoinment-form" method="post">
 					{% csrf_token %}
-					  <div class="row">
+					  
+						<div class="form-group-2 mb-4">
                         {{ form.as_p }}
   
-						  
+					
 					  </div>
 					  <div class="form-group">
                         <input class="btn btn-danger btn-round-full  " type="submit" id="send-coordinates" value="Submit Location">

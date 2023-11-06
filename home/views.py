@@ -6,9 +6,13 @@ from django.utils import translation
 from allauth.socialaccount.models import SocialAccount
 from .forms import UpdateProfileForm, LanguageSelectorForm, SignUpForm
 from .models import Profile
+from reportlab.lib.pagesizes import letter
+from selfqueue.models import MedicalRecord,PatientQueueHistory
 from appointment.models import Appointment
 from datetime import date
-
+from io import BytesIO
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
 def index(request):
     return render(request, 'home/index.html')
 
@@ -116,3 +120,29 @@ def set_language(request):
 
 def blog(request):
     return render(request, 'blog/index.html')
+from django.shortcuts import render, get_object_or_404
+
+def medicalReport(request):
+    current_user = request.user
+
+    try:
+        user_profile = Profile.objects.get(user=current_user)
+        medicalReport =PatientQueueHistory.objects.get(user=current_user)
+    except Profile.DoesNotExist:
+        user_profile = None  # Set user_profile to None if no profile exists for the user
+
+    if user_profile:
+        # Retrieve medical records for the user using the ForeignKey relationship
+        medical_records = MedicalRecord.objects.filter(user=user_profile.user)
+    else:
+        medical_records = []
+
+    context = {
+        'user_profile': user_profile,
+        'medical_records': medical_records,
+        'medicalReport':medicalReport
+    }
+    
+    return render(request, 'home/medicalHistory.html', context)
+
+
