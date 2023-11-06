@@ -8,35 +8,40 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     </head>
     <body>
-        <div id="heatmap-container"></div>
+        /ghj
+        <div id="ambulance-request-plot"></div>
+    <script>
+        fetch('/ambulance/ambulance_request_count', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            const hours = data.map(entry => entry.hour);
+            const counts = data.map(entry => entry.count);
+            
+            const trace = {
+                x: hours,
+                y: counts,
+                type: 'bar'
+            };
+            
+            const layout = {
+                title: 'Ambulance Requests Over Time',
+                xaxis: {
+                    title: 'Time (Hour)'
+                },
+                yaxis: {
+                    title: 'Request Count'
+                }
+            };
+            
+            Plotly.newPlot('ambulance-request-plot', [trace], layout);
+        });
+    </script>
     </body>
 
-    <script>
-        // heatmap.js
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('/ambulance/get_ambulance_requests_data/')
-                .then(response => response.json())
-                .then(data => {
-                    const latitude = data.map(request => request.latitude);
-                    const longitude = data.map(request => request.longitude);
-
-                    const heatmapData = [{
-                        type: 'heatmapgl',
-                        z: [latitude, longitude],
-                        colorscale: 'YlOrRd',
-                        showscale: true
-                    }];
-
-                    const layout = {
-                        title: 'Ambulance Request Heatmap',
-                        geo: {
-                            scope: 'South Africa',
-                        }
-                    };
-
-                    Plotly.newPlot('heatmap-container', heatmapData, layout);
-                });
-        });
-
-    </script>
+    
 {% endblock %}

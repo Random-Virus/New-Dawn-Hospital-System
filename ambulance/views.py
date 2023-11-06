@@ -4,6 +4,8 @@ from .models import ambulanceRequest, Hospital
 from django.contrib.auth.decorators import login_required
 from geopy.distance import geodesic
 from django.http import JsonResponse
+from django.db.models.functions import TruncHour
+from django.db.models import Count
 # from .models import HeatmapData
 # Create your views here.
 
@@ -42,7 +44,7 @@ def find_nearest_hospital(request):
         if min_distance is None or distance < min_distance:
             min_distance = distance
             nearest_hospital = hospital
-    print(distance)
+    # print(distance)
 
     context = {
         'hospital_latitude': nearest_hospital.latitude,
@@ -72,33 +74,12 @@ def request_detail(request, request_id):
     }
     return render(request, 'ambulance/request_detail.html', context)
 
-def get_ambulance_requests_data(request):
-    ambulance_requests = ambulanceRequest.objects.all()
-    data = [
-        {
-            'latitude': request.latitude,
-            'longitude': request.longitude,
-        }
-        for request in ambulance_requests
-    ]
-    print(data)
-    return JsonResponse(data, safe=False)
 
 def dashboard(request):
     return render(request, 'ambulance/dashboard.html')
 
-def map(request):
-    return render(request, 'ambulance/map.html')
-def hospital_locations(request):
-    hospitals = Hospital.objects.all()
-    data = [
-        {
-            'name': hospital.name,
-            'latitude': hospital.latitude,
-            'longitude': hospital.longitude,
-        }
-        for hospital in hospitals
-    ]
+def ambulance_request_count(request):
+    data = ambulanceRequest.objects.annotate(hour=TruncHour('timestamp')).values('hour').annotate(count=Count('id')).order_by('hour')
     print(data)
-    return JsonResponse(data, safe=False)
+    return JsonResponse(list(data), safe=False)
 

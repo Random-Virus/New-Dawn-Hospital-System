@@ -67,15 +67,18 @@
                     const frequencies = data.frequencies;
         
                     const trace = {
-                        x: symptoms,
-                        y: frequencies,
-                        type: 'line'
+                        // x: symptoms,
+                        // y: frequencies,
+                        labels: symptoms,
+                        labels: symptoms,
+                        values: frequencies,
+                        type: 'bar'
                     };
         
                     const layout = {
                         title: 'Symptom Frequency',
-                        xaxis: { title: 'Symptoms' },
-                        yaxis: { title: 'Frequency' }
+                        // xaxis: { title: 'Symptoms' },
+                        // yaxis: { title: 'Frequency' }
                     };
         
                     Plotly.newPlot('symptom-chart', [trace], layout);
@@ -99,7 +102,7 @@
                     };
     
                     const layout = {
-                        title: 'Patient Distribution Heatmap',
+                        title: 'Patient Distribution',
                         xaxis: { title: 'Day of the Week' },
                         yaxis: { title: 'Hour of the Day' },
                         autosize: false
