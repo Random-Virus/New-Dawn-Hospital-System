@@ -46,3 +46,14 @@ class MedicalRecord(models.Model):
 
     def __str__(self):
         return f"Medical Record for {self.patient.first_name} {self.patient.last_name}"
+class PatientQueueHistory(models.Model):
+    user = models.CharField(max_length=100)
+    symptoms = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    id_number = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15)
+    estimated_time = models.DateTimeField()
+    status = models.CharField(max_length=50)
+    closing_time = models.DateTimeField()
+    spot_number = models.IntegerField()

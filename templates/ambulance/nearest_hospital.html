@@ -24,20 +24,51 @@
 	border-color: #FFFFFF;
 }
 </style>
-<h1>Nearest Hospital</h1>
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  <div class="block text-center">
+			<span class="text-white">Book your Ambulance</span>
+			<h1 class="text-capitalize mb-5 text-lg">Emergency 24/7 Ambulance</h1>
+  
+		
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+  <section class="appoinment section">
+	<div class="container">
+	  <div class="row">
+		<div class="col-lg-4">
+			<div class="mt-3">
+			  <div class="feature-icon mb-3">
+				<i class="icofont-support text-lg"></i>
+			  </div>
+			   <span class="h3">Call for an Emergency Service!</span>
+				<h2 class="text-color mt-3">911 </h2>
+			</div>
+		</div>
+		<div class="col-lg-8" >
+			<div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
+			 <h3 class="mb-2 title-color">We have connected You To The Nearest Hospital</h3>
+			 <p class="mb-4">Please note that the use of this services is strictly for emegency situations, if found guilty of abusing this service you will be liable to pay a fine and criminal charges opened against you.</p>
+
 {% if hospital %}
-    <h3>Name: {{ hospital.name }}</h3>
+    <p>Name: {{ hospital.name }}</p>
     <!-- <p>Address: {{ hospital.address }}</p>
     <p>Phone: {{ hospital.phone }}</p> -->
     <p>Distance: {{ distance }} KM</p>
 {% else %}
     <p>No hospitals found.</p>
 {% endif %}
-<section>
-<a class="ghost" href="{% url 'ambulanceRequest' %}">Back to Ambulance Request</a>
-</section>
+
+
+
 <br>
-<section class="col-md-6">
+
 <iframe
   width="600"
   height="450"
@@ -48,5 +79,12 @@
   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAL-hrFKfJN7iFXNhahl7fQD0n0s4d2ihg&q={{hospital_latitude}},{{hospital_longitude}}">
 </iframe>
 
+<div class="form-group">
+<a class="ghost" href="{% url 'ambulanceRequest' %}">Back to Ambulance Request</a>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 {% endblock %}

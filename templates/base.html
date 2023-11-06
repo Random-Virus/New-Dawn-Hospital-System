@@ -80,7 +80,7 @@
                   <li class="nav-item active">
                     <a class="nav-link" href="{% url 'index' %}">Home</a>
                   </li>
-                   <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                
             
                   
               
@@ -122,7 +122,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             
                             <li><a class="dropdown-item" href="{% url 'dashboard-ambulance' %}" >Ambulance</a></li>
-                            <li><a class="dropdown-item" href="{% url 'dashboard-selfqueue' %}" >Self Queue</a></li>
+                            <li><a class="dropdown-item" href="{% url 'dashboard-selfqueue' %}" >Self Queue Kiosk</a></li>
                         </ul>
                     </li>
                  {% endif %}
@@ -134,7 +134,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             <li><a class="dropdown-item" href="{% url 'profile_view' %}">Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'viewAppointment' %}" >Appointments</a></li>
-                            <li><a class="dropdown-item">Medical History</a></li>
+                            <li><a class="dropdown-item" href="{% url 'medicalReport' %}">Medical History</a></li>
                         </ul>
                     </li>
                     

@@ -3,13 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import BookingForm, MedicalRecordForm
-from .models import PatientQueue, Symptom, MedicalRecord
+from .models import PatientQueue, Symptom, MedicalRecord,PatientQueueHistory
 from django.contrib import messages
 from datetime import datetime, timedelta
 from django.urls import reverse
 from twilio.rest import Client
 from django.contrib.auth.models import User
-
+from django.conf import settings
 from django.db.models import Max
 import csv
 from django.db.models import Count
@@ -178,9 +178,21 @@ def writeReport(request, id_number):
             
             # Add a success message
             messages.success(request, 'Medical record has been created successfully.')
-            if patient.status == 'In Consultation':
-                patient.status = 'Done with Consultation'
-                patient.save()
+            PatientQueueHistory.objects.create(
+                user = patient.user,
+                symptoms = patient.symptoms,
+                first_name = patient.first_name,
+                last_name = patient.last_name,
+                id_number = patient.id_number,
+                phone = patient.phone,
+                estimated_time = patient.estimated_time,
+                status = 'Done With Consultation',
+                closing_time = patient.closing_time,
+                spot_number = patient.spot_number,
+            )
+
+            patient.delete()
+           
             return redirect('view_queue')
         else:
             # Add an error message
@@ -190,7 +202,6 @@ def writeReport(request, id_number):
         form = MedicalRecordForm()
     
     return render(request, 'selfqueue/writeReport.html', {'form': form, 'patient': patient, 'messages': messages.get_messages(request)})
-
 def feedback(request, doctor_id):
     doctor = get_object_or_404(Doctor, pk=doctor_id)
 

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--inner banner-->
+
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  <div class="block text-center">
+			<h1 class="text-capitalize mb-5 text-lg">Your Medical Record</h1>
+		
+			
+  
+		
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <img src="{% static 'images/icon.png' %}" alt="Your Logo" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Patient Information -->
+    <h4>Patient Information</h4>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>Patient Full Name:</td>
+                <td>{{ user_profile.surname }} {{ user_profile.name }}</td>
+            </tr>
+            <tr>
+                <td>Date of Birth:</td>
+                <td>{{ user_profile.date_of_birth }}</td>
+            </tr>
+            <tr>
+                <td>Patient ID Number:</td>
+                <td>{{ user_profile.id_number }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Medical Records Summary Information -->
+
+    <!-- Chronological Medical Records Summary -->
+    <h4>Chronological Medical Records Summary</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Diagnose</th>
+                <th>Symptoms</th>
+                <th>Referrals</th>
+                <th>Prescription</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in medical_records %}
+                <tr>
+                    <td>{{ record.date }}</td>
+                    <td>{{ record.doctor }}</td>
+                    <td>{{ record.diagnosis }}</td>
+                    <td>{{ record.symptoms }}</td>
+                    <td>{{ record.referrals }}</td>
+                    <td>{{ record.prescription }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+
+  <section class="appoinment section">
+    
+  
+    <div class="container">
+
+     
+    
+</div>
+
+
+</section>
+
+{% endblock content %}
